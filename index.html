@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sale Report</title>
+<link rel="stylesheet" href="styles.css"> <!-- Include external CSS file -->
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Sale Report</h1>
+      <p class="sub-header">Real-time Sales Report</p>
+    </div>
+    <form id="saleForm">
+      <div class="form-group">
+        <label class="label" for="date">Date:</label>
+        <input class="input" type="date" id="date" name="reportDate">
+      </div>
+      <div class="form-group">
+        <label class="label" for="anna">Anna:</label>
+        <input class="input" type="number" id="anna" name="annaEarnings">
+      </div>
+      <div class="form-group">
+        <label class="label" for="alma">Alma:</label>
+        <input class="input" type="number" id="alma" name="almaEarnings">
+      </div>
+      <div class="form-group">
+        <label class="label" for="jennifer">Jennifer:</label>
+        <input class="input" type="number" id="jennifer" name="jenniferEarnings">
+      </div>
+      <div class="form-group">
+        <label class="label" for="expenses">Expenses:</label>
+        <input class="input" type="number" id="expenses" name="totalExpenses">
+      </div>
+      <div class="form-group">
+        <button class="button" type="button" id="calculateButton">Calculate Net Profit</button>
+      </div>
+    </form>
+    <div class="result">
+      <p id="totalEarnings"></p>
+      <p id="netProfit"></p>
+    </div>
+    <div class="result">
+      <h2 id="monthlyReport">Monthly Report</h2>
+      <p id="monthlyReportDate"></p>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Earnings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Anna</td>
+            <td id="annaMonthlyEarnings"></td>
+          </tr>
+          <tr>
+            <td>Alma</td>
+            <td id="almaMonthlyEarnings"></td>
+          </tr>
+          <tr>
+            <td>Jennifer</td>
+            <td id="jenniferMonthlyEarnings"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="result">
+      <h2 id="yearlyReport">Yearly Report</h2>
+      <p id="yearlyReportDate"></p>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Earnings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Anna</td>
+            <td id="annaYearlyEarnings"></td>
+          </tr>
+          <tr>
+            <td>Alma</td>
+            <td id="almaYearlyEarnings"></td>
+          </tr>
+          <tr>
+            <td>Jennifer</td>
+            <td id="jenniferYearlyEarnings"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="button" id="resetCacheButton">Reset Cache</button>
+  </div>
+  <script src="script.js"></script> <!-- Include external JavaScript file -->
+</body>
+</html>

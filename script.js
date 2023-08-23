@@ -24,10 +24,21 @@ function calculateAndDisplay() {
   const jenniferEarnings = parseFloat(jenniferEarningsInput.value) || 0;
   const expenses = parseFloat(expensesInput.value) || 0;
 
+  // Load previous cumulative earnings from Local Storage
+  const storedEarnings = JSON.parse(localStorage.getItem(earningsLocalStorageKey)) || {};
+  const storedAnnaEarnings = parseFloat(storedEarnings.anna) || 0;
+  const storedAlmaEarnings = parseFloat(storedEarnings.alma) || 0;
+  const storedJenniferEarnings = parseFloat(storedEarnings.jennifer) || 0;
+
+  // Calculate cumulative earnings
+  const cumulativeAnnaEarnings = storedAnnaEarnings + annaEarnings;
+  const cumulativeAlmaEarnings = storedAlmaEarnings + almaEarnings;
+  const cumulativeJenniferEarnings = storedJenniferEarnings + jenniferEarnings;
+
   // Calculate total earnings for each person
-  const totalAnnaEarnings = annaEarnings;
-  const totalAlmaEarnings = almaEarnings;
-  const totalJenniferEarnings = jenniferEarnings;
+  const totalAnnaEarnings = cumulativeAnnaEarnings;
+  const totalAlmaEarnings = cumulativeAlmaEarnings;
+  const totalJenniferEarnings = cumulativeJenniferEarnings;
 
   // Calculate and display total earnings
   const totalEarnings = totalAnnaEarnings + totalAlmaEarnings + totalJenniferEarnings;
@@ -38,13 +49,13 @@ function calculateAndDisplay() {
   document.getElementById('netProfit').textContent = `Net Profit: ₱${netProfit.toFixed(2)}`;
 
   // Calculate and display monthly and yearly earnings for each person
-  const monthlyAnnaEarnings = totalAnnaEarnings;
-  const monthlyAlmaEarnings = totalAlmaEarnings;
-  const monthlyJenniferEarnings = totalJenniferEarnings;
+  const monthlyAnnaEarnings = annaEarnings;
+  const monthlyAlmaEarnings = almaEarnings;
+  const monthlyJenniferEarnings = jenniferEarnings;
 
-  const yearlyAnnaEarnings = totalAnnaEarnings * 12;
-  const yearlyAlmaEarnings = totalAlmaEarnings * 12;
-  const yearlyJenniferEarnings = totalJenniferEarnings * 12;
+  const yearlyAnnaEarnings = cumulativeAnnaEarnings * 12;
+  const yearlyAlmaEarnings = cumulativeAlmaEarnings * 12;
+  const yearlyJenniferEarnings = cumulativeJenniferEarnings * 12;
 
   // Update monthly earnings in the summary
   document.getElementById('annaMonthlyEarnings').textContent = `₱${monthlyAnnaEarnings.toFixed(2)}`;
@@ -56,7 +67,15 @@ function calculateAndDisplay() {
   document.getElementById('almaYearlyEarnings').textContent = `₱${yearlyAlmaEarnings.toFixed(2)}`;
   document.getElementById('jenniferYearlyEarnings').textContent = `₱${yearlyJenniferEarnings.toFixed(2)}`;
 
-  // ... (remaining code remains the same)
+  // Save updated cumulative earnings to Local Storage
+  const updatedCumulativeEarnings = {
+    anna: cumulativeAnnaEarnings,
+    alma: cumulativeAlmaEarnings,
+    jennifer: cumulativeJenniferEarnings
+  };
+
+  localStorage.setItem(earningsLocalStorageKey, JSON.stringify(updatedCumulativeEarnings));
+  localStorage.setItem(expensesLocalStorageKey, expensesInput.value);
 }
 
 function loadLocalStorageData() {

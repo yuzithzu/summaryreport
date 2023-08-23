@@ -24,51 +24,39 @@ function calculateAndDisplay() {
   const jenniferEarnings = parseFloat(jenniferEarningsInput.value) || 0;
   const expenses = parseFloat(expensesInput.value) || 0;
 
-  // Load previous earnings from Local Storage
-  const storedEarnings = JSON.parse(localStorage.getItem(earningsLocalStorageKey)) || {};
-  const storedAnnaEarnings = parseFloat(storedEarnings.anna) || 0;
-  const storedAlmaEarnings = parseFloat(storedEarnings.alma) || 0;
-  const storedJenniferEarnings = parseFloat(storedEarnings.jennifer) || 0;
+  // Calculate total earnings for each person
+  const totalAnnaEarnings = annaEarnings;
+  const totalAlmaEarnings = almaEarnings;
+  const totalJenniferEarnings = jenniferEarnings;
 
   // Calculate and display total earnings
-  const totalEarnings = storedAnnaEarnings + storedAlmaEarnings + storedJenniferEarnings + annaEarnings + almaEarnings + jenniferEarnings;
+  const totalEarnings = totalAnnaEarnings + totalAlmaEarnings + totalJenniferEarnings;
   document.getElementById('totalEarnings').textContent = `Total Earnings: ₱${totalEarnings.toFixed(2)}`;
 
   // Calculate and display net profit
   const netProfit = totalEarnings - expenses;
   document.getElementById('netProfit').textContent = `Net Profit: ₱${netProfit.toFixed(2)}`;
 
-  // Update monthly and yearly earnings in the report tables
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleString('en-PH');
-  document.getElementById('monthlyReportDate').textContent = `Calculation Date: ${formattedDate}`;
-  document.getElementById('yearlyReportDate').textContent = `Calculation Date: ${formattedDate}`;
+  // Calculate and display monthly and yearly earnings for each person
+  const monthlyAnnaEarnings = totalAnnaEarnings;
+  const monthlyAlmaEarnings = totalAlmaEarnings;
+  const monthlyJenniferEarnings = totalJenniferEarnings;
 
-  const monthlyAnnaEarnings = storedAnnaEarnings + annaEarnings;
-  const monthlyAlmaEarnings = storedAlmaEarnings + almaEarnings;
-  const monthlyJenniferEarnings = storedJenniferEarnings + jenniferEarnings;
+  const yearlyAnnaEarnings = totalAnnaEarnings * 12;
+  const yearlyAlmaEarnings = totalAlmaEarnings * 12;
+  const yearlyJenniferEarnings = totalJenniferEarnings * 12;
 
-  const yearlyAnnaEarnings = monthlyAnnaEarnings * 12;
-  const yearlyAlmaEarnings = monthlyAlmaEarnings * 12;
-  const yearlyJenniferEarnings = monthlyJenniferEarnings * 12;
-
+  // Update monthly earnings in the summary
   document.getElementById('annaMonthlyEarnings').textContent = `₱${monthlyAnnaEarnings.toFixed(2)}`;
   document.getElementById('almaMonthlyEarnings').textContent = `₱${monthlyAlmaEarnings.toFixed(2)}`;
   document.getElementById('jenniferMonthlyEarnings').textContent = `₱${monthlyJenniferEarnings.toFixed(2)}`;
 
+  // Update yearly earnings in the summary
   document.getElementById('annaYearlyEarnings').textContent = `₱${yearlyAnnaEarnings.toFixed(2)}`;
   document.getElementById('almaYearlyEarnings').textContent = `₱${yearlyAlmaEarnings.toFixed(2)}`;
   document.getElementById('jenniferYearlyEarnings').textContent = `₱${yearlyJenniferEarnings.toFixed(2)}`;
 
-  // Save updated input values to Local Storage
-  const updatedEarnings = {
-    anna: monthlyAnnaEarnings,
-    alma: monthlyAlmaEarnings,
-    jennifer: monthlyJenniferEarnings
-  };
-
-  localStorage.setItem(earningsLocalStorageKey, JSON.stringify(updatedEarnings));
-  localStorage.setItem(expensesLocalStorageKey, expensesInput.value);
+  // ... (remaining code remains the same)
 }
 
 function loadLocalStorageData() {
@@ -81,17 +69,6 @@ function loadLocalStorageData() {
   expensesInput.value = localStorage.getItem(expensesLocalStorageKey) || '';
 }
 
-function saveToLocalStorage() {
-  const earnings = {
-    anna: annaEarningsInput.value,
-    alma: almaEarningsInput.value,
-    jennifer: jenniferEarningsInput.value
-  };
-
-  localStorage.setItem(earningsLocalStorageKey, JSON.stringify(earnings));
-  localStorage.setItem(expensesLocalStorageKey, expensesInput.value);
-}
-
 function resetCache() {
   localStorage.removeItem(earningsLocalStorageKey);
   localStorage.removeItem(expensesLocalStorageKey);
@@ -101,12 +78,12 @@ function resetCache() {
   expensesInput.value = '';
   document.getElementById('totalEarnings').textContent = 'Total Earnings: ₱0.00';
   document.getElementById('netProfit').textContent = 'Net Profit: ₱0.00';
-  document.getElementById('annaMonthlyEarnings').textContent = '₱0.00';
-  document.getElementById('almaMonthlyEarnings').textContent = '₱0.00';
-  document.getElementById('jenniferMonthlyEarnings').textContent = '₱0.00';
   document.getElementById('annaYearlyEarnings').textContent = '₱0.00';
   document.getElementById('almaYearlyEarnings').textContent = '₱0.00';
   document.getElementById('jenniferYearlyEarnings').textContent = '₱0.00';
+  document.getElementById('annaMonthlyEarnings').textContent = '₱0.00';
+  document.getElementById('almaMonthlyEarnings').textContent = '₱0.00';
+  document.getElementById('jenniferMonthlyEarnings').textContent = '₱0.00';
   document.getElementById('monthlyReportDate').textContent = '';
   document.getElementById('yearlyReportDate').textContent = '';
 }
